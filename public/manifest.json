@@ -1,11 +1,11 @@
 {
-  "short_name": "Video Share",
-  "name": "Local Video Share",
-  "icons": [
+	"short_name": "Video Share",
+	"name": "Local Video Share",
+	"icons": [
 
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+	],
+	"start_url": ".",
+	"display": "standalone",
+	"theme_color": "#000000",
+	"background_color": "#ffffff"
 }
