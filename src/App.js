@@ -6,7 +6,8 @@ import {
 	Redirect
 } from "react-router-dom";
 
-import Start from './components/Start';
+import SelectVideo from './components/SelectVideo';
+import CreateOffer from './components/CreateOffer';
 import AcceptOffer from './components/AcceptOffer';
 import AcceptAnswer from './components/AcceptAnswer';
 import Live from './components/Live';
@@ -16,10 +17,13 @@ function App() {
 		<Router>
 			<Switch>
 				<Route exact path="/">
-					<Redirect to="/start" />
+					<Redirect to="/select-video" />
 				</Route>
-				<Route path="/start">
-					<Start />
+				<Route path="/select-video">
+					<SelectVideo />
+				</Route>
+				<Route path="/create-offer">
+					<CreateOffer />
 				</Route>
 				<Route path="/accept-offer">
 					<AcceptOffer />

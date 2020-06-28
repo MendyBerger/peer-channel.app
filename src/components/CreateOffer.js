@@ -1,10 +1,7 @@
 import React from 'react';
 import shareService from '../services/ShareService';
-import rtcService from '../services/RtcService';
 
-rtcService.getOfferData()
-
-function Start(props) {
+function CreateOffer(props) {
 	return (
 		<div>
 			<button onClick={shareService.share}>Share offer</button>
@@ -13,4 +10,4 @@ function Start(props) {
 	);
 }
 
-export default Start;
+export default CreateOffer;
