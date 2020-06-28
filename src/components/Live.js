@@ -3,7 +3,7 @@ import React from 'react';
 function Live(props) {
 	return (
 		<div>
-			Live
+			<video controls></video>
 		</div>
 	);
 }

@@ -1,9 +1,11 @@
 import React from 'react';
+import shareService from "../services/ShareService";
 
 function AcceptOffer(props) {
 	return (
 		<div>
-			AcceptOffer
+			<button onClick={shareService.share}>Share answer</button>
+			<button onClick={shareService.copy}>Copy answer</button>
 		</div>
 	);
 }
