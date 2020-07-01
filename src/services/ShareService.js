@@ -1,12 +1,13 @@
 class ShareService {
-	share(e) {
+	share(url) {
 		navigator.share({
-			
+			title: "Peer stream",
+			url,
 		});
 	}
 	
-	copy(e) {
-		navigator.clipboard.writeText("text");
+	copy(url) {
+		navigator.clipboard.writeText(url);
 	}
 }
 const shareService = new ShareService;
