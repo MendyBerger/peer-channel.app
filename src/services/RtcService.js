@@ -28,6 +28,12 @@ class RtcService {
 		this.videoElement.src = videoBlob;
 	}
 
+	acceptAnswer() {
+		const data = this._getAnswerDate();
+		this.answerChannel.postMessage(data);
+		// window.close();
+	}
+
 	_addOnAnswer(){
 		this.answerChannel.addEventListener("message", e => {
 			console.log(e);
@@ -68,6 +74,13 @@ class RtcService {
 					resolve(candidateArray);
 			});
 		});
+	}
+
+	_getAnswerDate() {
+		const base64 = window.location.hash.substring(1);
+		const json = atob(base64);
+		const data = JSON.parse(json);
+		return data;
 	}
 
 }
