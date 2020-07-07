@@ -4,11 +4,11 @@ import rtcService from '../services/RtcService';
 
 async function share(){
 	const s = await rtcService.getOfferData();
-	shareService.share(s);
+	shareService.share(`${window.location.origin}/accept-offer#${s}`);
 }
 async function copy(){
 	const s = await rtcService.getOfferData();
-	shareService.copy(s);
+	shareService.copy(`${window.location.origin}/accept-offer#${s}`);
 }
 
 function CreateOffer(props) {
