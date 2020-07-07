@@ -5,7 +5,7 @@ function AcceptAnswer(props) {
 	rtcService.acceptAnswer();
 	return (
 		<div>
-			Opening the correct tab...
+			You can now close this tab and go back to the video.
 		</div>
 	);
 }
