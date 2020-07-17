@@ -40,21 +40,11 @@ function App() {
 						<Route exact path="/">
 							<Redirect to="/select-video" />
 						</Route>
-						<Route path="/select-video">
-							<SelectVideo />
-						</Route>
-						<Route path="/create-offer">
-							<CreateOffer />
-						</Route>
-						<Route path="/accept-offer">
-							<AcceptOffer />
-						</Route>
-						<Route path="/accept-answer">
-							<AcceptAnswer />
-						</Route>
-						<Route path="/live">
-							<Live />
-						</Route>
+						<Route exact path="/select-video" component={SelectVideo} />
+						<Route exact path="/create-offer" component={CreateOffer} />
+						<Route exact path="/accept-offer" component={AcceptOffer} />
+						<Route exact path="/accept-answer" component={AcceptAnswer} />
+						<Route exact path="/live" component={Live} />
 					</Switch>
 				</Router>
 			</div>
