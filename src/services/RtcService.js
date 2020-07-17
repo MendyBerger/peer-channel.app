@@ -1,14 +1,35 @@
-class RtcService {
+class RtcService extends EventTarget {
+
+	constructor(){
+		super()
+		window.s = this;
+	}
 
 	pc = new RTCPeerConnection;
-	videoElement = document.createElement("video");
+	dataChannel;
+	// videoElement = document.createElement("video");
 	answerChannel = new BroadcastChannel("answer_channel");
 
 	async getOfferData() {
-		let stream = this.videoElement.captureStream(0);
-		stream.getTracks().forEach(track => {
-			this.pc.addTrack(track, stream);
+		// let stream = this.videoElement.captureStream(0);
+		// stream.getTracks().forEach(track => {
+		// 	this.pc.addTrack(track, stream);
+		// });
+		this.dataChannel = this.pc.createDataChannel("data_channel");
+
+		this.dataChannel.addEventListener("close", e => {
+			console.log(e);
 		});
+		this.dataChannel.addEventListener("error", e => {
+			console.log(e);
+		});
+		this.dataChannel.addEventListener("message", e => {
+			console.log(e);
+		});
+		this.dataChannel.addEventListener("open", e => {
+			console.log(e);
+		});
+
 		let arr = await Promise.all([this._getLocalDescription(), this._getIceCandidates()]);
 		console.log(arr);
 		
@@ -23,10 +44,10 @@ class RtcService {
 		return base64;
 	}
 
-	addVideoElement(videoFile){
-		let videoBlob = URL.createObjectURL(videoFile);
-		this.videoElement.src = videoBlob;
-	}
+	// addVideoElement(videoFile){
+	// 	let videoBlob = URL.createObjectURL(videoFile);
+	// 	this.videoElement.src = videoBlob;
+	// }
 
 	acceptAnswer() {
 		const data = this._getAnswerDate();
@@ -43,9 +64,9 @@ class RtcService {
 			this.pc.setRemoteDescription(sessionDescription)
 				.then(e => {
 					console.log(e);
-
-					this.videoElement.controls = true;
-					document.body.appendChild(this.videoElement);
+					this.dispatchEvent("connected");
+					// this.videoElement.controls = true;
+					// document.body.appendChild(this.videoElement);
 				})
 				.catch(console.error)
 		});

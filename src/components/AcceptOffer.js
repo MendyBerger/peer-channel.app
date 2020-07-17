@@ -15,7 +15,9 @@ const useStyles = makeStyles({
 
 let pc = new RTCPeerConnection();
 let base64;
-let videoEl;
+
+window.c = pc;
+// let videoEl;
 
 function takeOfferFromUrl(){
 	let json = atob(window.location.hash.substring(1));
@@ -38,9 +40,18 @@ function takeOfferFromUrl(){
 		.catch(console.error);
 }
 
-pc.addEventListener("track", e => {
-	videoEl.current.srcObject = e.streams[0];
-});
+
+pc.addEventListener("datachannel", e => {
+	console.log(e);
+	window.dc = e.channel;
+	e.channel.addEventListener("message", e => {
+		console.log(e);
+	})
+})
+
+// pc.addEventListener("track", e => {
+// 	videoEl.current.srcObject = e.streams[0];
+// });
 
 function share() {
 	shareService.share(`${window.location.origin}/accept-answer#${base64}`);
@@ -50,7 +61,7 @@ function copy() {
 }
 
 function AcceptOffer(props) {
-	videoEl = useRef();
+	// videoEl = useRef();
 	let classes = useStyles();
 
 	useEffect(() => {
@@ -62,7 +73,7 @@ function AcceptOffer(props) {
 			<Typography>Now reply with the answer with your friend</Typography>
 			{ navigator.share && <Button variant="contained" color="primary" onClick={share}>Share answer</Button> }
 			<Button variant="contained" color="primary" onClick={copy}>Copy answer</Button>
-			<video ref={videoEl} controls />
+			{/* <video ref={videoEl} controls /> */}
 		</div>
 	);
 }
