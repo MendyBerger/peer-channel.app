@@ -1,5 +1,16 @@
 import React, { useRef, useEffect } from 'react';
 import shareService from "../services/ShareService";
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
+const useStyles = makeStyles({
+	root: {
+		display: 'grid',
+		placeItems: 'center',
+		gridGap: '10px',
+	},
+});
 
 
 let pc = new RTCPeerConnection();
@@ -40,15 +51,17 @@ function copy() {
 
 function AcceptOffer(props) {
 	videoEl = useRef();
+	let classes = useStyles();
 
 	useEffect(() => {
 		takeOfferFromUrl();
 	}, []);
 
 	return (
-		<div>
-			<button onClick={share}>Share answer</button>
-			<button onClick={copy}>Copy answer</button>
+		<div className={classes.root}>
+			<Typography>Now reply with the answer with your friend</Typography>
+			{ navigator.share && <Button variant="contained" color="primary" onClick={share}>Share answer</Button> }
+			<Button variant="contained" color="primary" onClick={copy}>Copy answer</Button>
 			<video ref={videoEl} controls />
 		</div>
 	);
