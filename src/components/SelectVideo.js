@@ -19,7 +19,8 @@ const useStyles = makeStyles({
 function onVideoSelect(e, history) {
 	const file = e.target.files[0];
 	// rtcService.addVideoElement(file);
-	history.push("create-offer");
+	rtcService.___addVideoFile = file;
+	history.push("live");
 }
 
 function SelectVideo() {

@@ -15,6 +15,7 @@ import CreateOffer from './components/CreateOffer';
 import AcceptOffer from './components/AcceptOffer';
 import AcceptAnswer from './components/AcceptAnswer';
 import Live from './components/Live';
+import LiveClient from './components/LiveClient';
 
 const useStyles = makeStyles({
 	root: {
@@ -38,13 +39,14 @@ function App() {
 				<Router>
 					<Switch>
 						<Route exact path="/">
-							<Redirect to="/select-video" />
+							<Redirect to="/create-offer" />
 						</Route>
 						<Route exact path="/select-video" component={SelectVideo} />
 						<Route exact path="/create-offer" component={CreateOffer} />
 						<Route exact path="/accept-offer" component={AcceptOffer} />
 						<Route exact path="/accept-answer" component={AcceptAnswer} />
 						<Route exact path="/live" component={Live} />
+						<Route exact path="/live-client" component={LiveClient} />
 					</Switch>
 				</Router>
 			</div>

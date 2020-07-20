@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import shareService from '../services/ShareService';
 import rtcService from '../services/RtcService';
 
+let history;
+
 const useStyles = makeStyles({
 	root: {
 		display: 'grid',
@@ -15,15 +17,22 @@ const useStyles = makeStyles({
 });
 
 async function share(){
-	const s = await rtcService.getOfferData();
+	// const s = await rtcService.getOfferData();
+	const s = rtcService.bdc_getBase64();
 	shareService.share(`${window.location.origin}/accept-offer#${s}`);
 }
 async function copy(){
-	const s = await rtcService.getOfferData();
+	// const s = await rtcService.getOfferData();
+	const s = rtcService.bdc_getBase64();
 	shareService.copy(`${window.location.origin}/accept-offer#${s}`);
 }
 
+rtcService.addEventListener("connected", e => {
+	history.push("select-video");
+});
+
 function CreateOffer(props) {
+	history = props.history;
 	let classes = useStyles();
 
 	return (
