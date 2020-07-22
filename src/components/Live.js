@@ -33,19 +33,6 @@ let streamToTrack = async e => {
 	stream.getTracks().forEach(track => {
 		rtcService.pc.addTrack(track, stream); // might be able to remove second parameter
 	});
-
-	let desc =  await rtcService._getLocalDescription();
-	rtcService.dataChannel.send(JSON.stringify({
-		type: "offer",
-		description: desc
-	}))
-	let candidates = await rtcService._getIceCandidates();
-	candidates.forEach(candidate => {
-		rtcService.dataChannel.send(JSON.stringify({
-			type: "iceCandidate",
-			iceCandidate: candidate
-		}))
-	});
 }
 
 

@@ -3,7 +3,7 @@ import shareService from "../services/ShareService";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import rtcService from '../services/RtcService';
+import rtcSetupAnswererService from '../services/RtcSetupAnswererService';
 
 const useStyles = makeStyles({
 	root: {
@@ -15,24 +15,24 @@ const useStyles = makeStyles({
 
 
 function takeOfferFromUrl(){
-	rtcService.bdc_acceptDataChannelOffer(window.location.hash.substring(1));
+	rtcSetupAnswererService.acceptOffer(window.location.hash.substring(1));
 }
 
 
-rtcService.pc.addEventListener("track", e => {
-	console.log(e);
-	// videoEl.current.srcObject = e.streams[0];
-});
+// rtcService.pc.addEventListener("track", e => {
+// 	console.log(e);
+// 	// videoEl.current.srcObject = e.streams[0];
+// });
 
-rtcService.pc.addEventListener("negotiationneeded", e => {
-	console.log(e);
-});
+// rtcService.pc.addEventListener("negotiationneeded", e => {
+// 	console.log(e);
+// });
 
 function share() {
-	shareService.share(`${window.location.origin}/accept-answer#${rtcService.bdc_getBase64()}`);
+	shareService.share(`${window.location.origin}/accept-answer#${rtcSetupAnswererService.getBase64()}`);
 }
 function copy() {
-	shareService.copy(`${window.location.origin}/accept-answer#${rtcService.bdc_getBase64()}`);
+	shareService.copy(`${window.location.origin}/accept-answer#${rtcSetupAnswererService.getBase64()}`);
 }
 
 function AcceptOffer(props) {
@@ -41,6 +41,7 @@ function AcceptOffer(props) {
 
 	useEffect(() => {
 		takeOfferFromUrl();
+		rtcSetupAnswererService.setupAnswerer();
 	}, []);
 
 	return (
