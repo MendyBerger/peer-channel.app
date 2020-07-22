@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import rtcService from "../services/RtcService";
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,7 +18,6 @@ const useStyles = makeStyles({
 
 function onVideoSelect(e, history) {
 	const file = e.target.files[0];
-	// rtcService.addVideoElement(file);
 	rtcService.___addVideoFile = file;
 	history.push("live");
 }
@@ -26,6 +25,20 @@ function onVideoSelect(e, history) {
 function SelectVideo() {
 	let history = useHistory();
 	let classes = useStyles();
+	useEffect(() => {
+
+		rtcService.pc.addEventListener("track", e => {
+			history.push("live");
+			rtcService.___videoStream = e.streams[0];
+			console.log(e);
+		});
+	
+		rtcService.pc.addEventListener("negotiationneeded", e => {
+			console.log(e);
+		});
+
+	}, [])
+
 	return (
 		<div className={classes.root}>
 			<Typography>To start a stream please choose a video.</Typography >

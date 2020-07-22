@@ -2,27 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import rtcService from '../services/RtcService';
 
-// let videoObjectUrl;
-let setObjectUrlG;
 let videoElement;
 
  function initVideo() {
-	// console.log(videoElement.current);
-	let videoFile = rtcService.___addVideoFile;
-	setObjectUrlG(URL.createObjectURL(videoFile));
-
-
-	// let objectUrl = URL.createObjectURL(videoFile)
-
-	// let videoElement = document.createElement("video");
-	// videoElement.src = objectUrl;
-
-	// let stream = videoElement.captureStream(0);
-	// stream.getTracks().forEach(track => {
-	// 	rtcService.pc.addTrack(track, stream);
-	// });
-
-	
+	if(rtcService.___addVideoFile){
+		let videoFile = rtcService.___addVideoFile;
+		videoElement.current.src = URL.createObjectURL(videoFile);
+	} else {
+		videoElement.current.srcObject = rtcService.___videoStream;
+	}
 }
 
 let streamToTrack = async e => {
@@ -39,17 +27,15 @@ let streamToTrack = async e => {
 
 function Live(props) {
 	videoElement = useRef();
-	const [objectUrl, setObjectUrl] = useState();
 	useEffect(initVideo, []);
-	setObjectUrlG = setObjectUrl;
 
 	return (
 		<div>
 			<video
 				ref={videoElement}
-				src={objectUrl}
 				onCanPlay={streamToTrack}
 				controls
+				autoPlay
 			></video>
 		</div>
 	);

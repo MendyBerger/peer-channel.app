@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import rtcSetupAnswererService from '../services/RtcSetupAnswererService';
+import rtcService from '../services/RtcService';
 
 const useStyles = makeStyles({
 	root: {
@@ -18,15 +19,7 @@ function takeOfferFromUrl(){
 	rtcSetupAnswererService.acceptOffer(window.location.hash.substring(1));
 }
 
-
-// rtcService.pc.addEventListener("track", e => {
-// 	console.log(e);
-// 	// videoEl.current.srcObject = e.streams[0];
-// });
-
-// rtcService.pc.addEventListener("negotiationneeded", e => {
-// 	console.log(e);
-// });
+let history;
 
 function share() {
 	shareService.share(`${window.location.origin}/accept-answer#${rtcSetupAnswererService.getBase64()}`);
@@ -36,12 +29,16 @@ function copy() {
 }
 
 function AcceptOffer(props) {
-	// videoEl = useRef();
 	let classes = useStyles();
 
+	history = props.history;
+
 	useEffect(() => {
-		takeOfferFromUrl();
 		rtcSetupAnswererService.setupAnswerer();
+		takeOfferFromUrl();
+		rtcService.addEventListener("connected", e => {
+			history.push("select-video");
+		});
 	}, []);
 
 	return (
