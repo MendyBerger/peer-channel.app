@@ -26,7 +26,6 @@ class RtcService extends EventTarget {
 
 	_setupPeerConnectionEventListeners(){
 		this.pc.addEventListener("negotiationneeded", e => {
-			console.log(e, e.type);
 			this._sentOffer();
 		});
 		this.pc.addEventListener("icecandidate", e => {
@@ -67,7 +66,6 @@ class RtcService extends EventTarget {
 	}
 
 	_onDataChannelMessage(e){
-		console.log(e);
 		let message = JSON.parse(e.data);
 		if(message.type === "iceCandidate"){
 			this._onRemoteIceCandidate(message.candidate);

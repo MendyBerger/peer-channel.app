@@ -19,7 +19,6 @@ class RtcSetupOffererService {
 			description: this.pc.localDescription,
 			iceCandidates: this._iceCandidates,
 		});
-		console.log(json);
 		let base64 = btoa(json);
 		return base64;
 	}

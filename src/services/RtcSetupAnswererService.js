@@ -16,7 +16,6 @@ class RtcSetupAnswererService {
 			description: this.pc.localDescription,
 			iceCandidates: this._iceCandidates,
 		});
-		console.log(json);
 		let base64 = btoa(json);
 		return base64;
 	}
@@ -28,7 +27,6 @@ class RtcSetupAnswererService {
 			.then(() => this.pc.createAnswer())
 			.then(answer => this.pc.setLocalDescription(answer))
 			.then(() => {
-				console.log(obj);
 				obj.iceCandidates.forEach(candidate => {
 					this.pc.addIceCandidate(candidate);
 				});
