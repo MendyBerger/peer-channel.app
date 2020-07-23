@@ -15,6 +15,7 @@ let videoElement;
 
 let streamToTrack = async e => {
 	console.log(e.nativeEvent);
+	HTMLVideoElement.prototype.captureStream = HTMLVideoElement.prototype.captureStream || HTMLVideoElement.prototype.mozCaptureStream;
 	let stream = videoElement.current.captureStream(0);
 
 	console.log(stream);
