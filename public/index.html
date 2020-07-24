@@ -9,7 +9,9 @@
 		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 		<title>Local video share</title>
 		<style>
-			* {
+			@namespace svg "http://www.w3.org/2000/svg";
+
+			:not(svg|*) { /* https://stackoverflow.com/a/46760868/5253155 */
 				all: unset;
 				display: revert;
 				box-sizing: border-box;
