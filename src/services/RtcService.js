@@ -1,3 +1,5 @@
+import EventTarget from "@ungap/event-target";
+
 class RtcService extends EventTarget {
 
 	pc;

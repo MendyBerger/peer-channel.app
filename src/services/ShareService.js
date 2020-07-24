@@ -1,3 +1,5 @@
+import * as clipboard from "clipboard-polyfill";
+
 class ShareService {
 	share(url) {
 		navigator.share({
@@ -7,7 +9,10 @@ class ShareService {
 	}
 	
 	copy(url) {
-		navigator.clipboard.writeText(url);
+		if("clipboard" in navigator)
+			navigator.clipboard.writeText(url);
+		else
+			clipboard.writeText(url);
 	}
 }
 const shareService = new ShareService;
