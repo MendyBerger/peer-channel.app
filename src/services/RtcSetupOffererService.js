@@ -1,5 +1,4 @@
 import rtcService from "./RtcService";
-import { BroadcastChannel } from 'broadcast-channel'; // WebKit polyfill
 
 class RtcSetupOffererService {
 
