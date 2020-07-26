@@ -26,6 +26,13 @@ class RtcService extends EventTarget {
 			this.dispatchEvent(new Event("connected"));
 	}
 
+	sendMediaControl(data){
+		this.dataChannel.send(JSON.stringify({
+			type: "mediaControl",
+			data,
+		}));
+	}
+
 	_setupPeerConnectionEventListeners(){
 		this.pc.addEventListener("negotiationneeded", e => {
 			this._sentOffer();
@@ -78,6 +85,9 @@ class RtcService extends EventTarget {
 		if(message.type === "offer"){
 			this._onRemoteOffer(message.description);
 		}
+		if(message.type === "mediaControl"){
+			this._onMediaControl(message.data);
+		}
 	}
 	_onRemoteIceCandidate(candidate){
 		this.pc.addIceCandidate(candidate);
@@ -95,6 +105,9 @@ class RtcService extends EventTarget {
 	}
 	_onRemoteAnswer(description){
 		this.pc.setRemoteDescription(description);
+	}
+	_onMediaControl(data){
+		this.dispatchEvent(new CustomEvent("mediaControl", {detail: data}));
 	}
 
 }

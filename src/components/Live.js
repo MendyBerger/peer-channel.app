@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import rtcService from '../services/RtcService';
+import Video from './Video';
 
 let videoElement;
 
@@ -24,20 +25,16 @@ let streamToTrack = async e => {
 	});
 }
 
-
-
-function Live(props) {
+function Live() {
 	videoElement = useRef();
 	useEffect(initVideo, []);
 
 	return (
 		<div>
-			<video
+			<Video
 				ref={videoElement}
 				onCanPlay={streamToTrack}
-				controls
-				autoPlay
-			></video>
+			/>
 		</div>
 	);
 }
