@@ -18,6 +18,20 @@ import AcceptAnswer from './components/AcceptAnswer';
 import Live from './components/Live';
 import LiveClient from './components/LiveClient';
 
+(() => {
+	const allowedStartUrls = [
+		"/create-offer",
+		"/accept-offer",
+		"/accept-answer",
+	];
+	for (const url of allowedStartUrls) {
+		if(window.location.pathname.startsWith(url)){
+			return;
+		}
+	}
+	window.location.pathname = "create-offer";
+})();
+
 const useStyles = makeStyles({
 	root: {
 		height: "calc(100vh - 64px)",
