@@ -44,13 +44,8 @@ let Video = forwardRef(function(props, videoElement) {
 		});
 	}, []);
 
-	function onVolumeUp(){
-		let newVolume = videoElement.current.volume + 0.05;
-		videoElement.current.volume = newVolume <= 1 ? newVolume : 1;
-	}
-	function onVolumeDown(){
-		let newVolume = videoElement.current.volume - 0.05;
-		videoElement.current.volume = newVolume >= 0 ? newVolume : 0;
+	function onVolumeChange(volume){
+		videoElement.current.volume = volume / 100;
 	}
 	function onFullscreen(){
 		setFullscreen(true);
@@ -85,9 +80,7 @@ let Video = forwardRef(function(props, videoElement) {
 				onFullscreenExit={onFullscreenExit}
 				onMute={onMute}
 				onUnmute={onUnmute}
-				onVolumeUp={onVolumeUp}
-				onVolumeDown={onVolumeDown}
-				volume={videoElement.current?.volume}
+				onVolumeChange={onVolumeChange}
 				paused={paused}
 				fullscreen={fullscreen}
 				muted={muted}

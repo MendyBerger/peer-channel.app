@@ -14,6 +14,7 @@ const useStyles = makeStyles({
 
 function VideoControls(props) {
 	const [value, setValue] = useState(30);
+	const [volume, setVolume] = useState(100);
 
 	const classes = useStyles();
 
@@ -22,6 +23,19 @@ function VideoControls(props) {
 		props.onSeek(newValue);
 		setValue(newValue);
 	};
+
+	function onVolumeUp(){
+		let newVolume = volume + 5;
+		newVolume = newVolume <= 100 ? newVolume : 100;
+		setVolume(newVolume);
+		props.onVolumeChange(newVolume);
+	}
+	function onVolumeDown(){
+		let newVolume = volume - 5;
+		newVolume = newVolume >= 0 ? newVolume : 0;
+		setVolume(newVolume);
+		props.onVolumeChange(newVolume);
+	}
 
 	return (
 		<div className={classes.root}>
@@ -54,10 +68,10 @@ function VideoControls(props) {
 					</IconButton>
 				)
 			}
-			<IconButton disabled={props.volume >= 1} color="primary" onClick={props.onVolumeUp} aria-label="Volume up">
+			<IconButton disabled={volume >= 100} color="primary" onClick={onVolumeUp} aria-label="Volume up">
 				<VolumeUp fontSize="large" />
 			</IconButton>
-			<IconButton disabled={props.volume <= 0} color="primary" onClick={props.onVolumeDown} aria-label="Volume down">
+			<IconButton disabled={volume <= 0} color="primary" onClick={onVolumeDown} aria-label="Volume down">
 				<VolumeDown fontSize="large" />
 			</IconButton>
 			{
