@@ -38,7 +38,6 @@ function AcceptOffer(props) {
 
 	async function share() {
 		await shareService.share(`${window.location.origin}/accept-answer#${rtcSetupAnswererService.getBase64()}`);
-		setOpen(true);
 	}
 	async function copy() {
 		await shareService.copy(`${window.location.origin}/accept-answer#${rtcSetupAnswererService.getBase64()}`);

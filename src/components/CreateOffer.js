@@ -33,7 +33,6 @@ function CreateOffer(props) {
 	async function share(){
 		const s = rtcSetupOffererService.getBase64();
 		await shareService.share(`${window.location.origin}/accept-offer#${s}`);
-		setOpen(true);
 	}
 	async function copy(){
 		const s = rtcSetupOffererService.getBase64();
