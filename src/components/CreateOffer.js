@@ -47,7 +47,7 @@ function CreateOffer(props) {
 
 	return (
 		<div className={classes.root}>
-			<Typography>Now share this offer with a friend</Typography>
+			<Typography>Share the offer with your friend</Typography>
 			{ navigator.share && <Button variant="contained" color="primary" onClick={share}>Share offer</Button> }
 			<Button variant="contained" color="primary" onClick={copy}>Copy offer</Button>
 			<Snackbar open={open} autoHideDuration={3000} onClose={handleClose} message="Copied to clipboard!" />

@@ -51,7 +51,7 @@ function AcceptOffer(props) {
 
 	return (
 		<div className={classes.root}>
-			<Typography>Now reply with the answer with your friend</Typography>
+			<Typography>Reply with the answer to your friend</Typography>
 			{ navigator.share && <Button variant="contained" color="primary" onClick={share}>Share answer</Button> }
 			<Button variant="contained" color="primary" onClick={copy}>Copy answer</Button>
 			<Snackbar open={open} autoHideDuration={3000} onClose={handleClose} message="Copied to clipboard!" />
