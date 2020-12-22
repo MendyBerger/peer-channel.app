@@ -1,6 +1,6 @@
 import React from 'react';
 
-function LiveClient(props) {
+function LiveClient() {
 	return (
 		<div>
 			<video controls></video>

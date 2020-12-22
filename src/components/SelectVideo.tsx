@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, SyntheticEvent } from 'react';
 import rtcService from "../services/RtcService";
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { History } from "history";
 
 const useStyles = makeStyles({
 	root: {
@@ -16,8 +17,8 @@ const useStyles = makeStyles({
 	},
 });
 
-function onVideoSelect(e, history) {
-	const file = e.target.files[0];
+function onVideoSelect(e: SyntheticEvent, history: History) {
+	const file = (e.target as HTMLInputElement).files![0];
 	rtcService.___addVideoFile = file;
 	history.push("live");
 }

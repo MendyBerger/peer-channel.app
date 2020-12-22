@@ -1,4 +1,5 @@
 import EventTarget from "@ungap/event-target";
+import { MediaControlEventData, MediaControlEventType } from "../Models/Events";
 import rtcService from "./RtcService";
 
 class StreamSyncService extends EventTarget {
@@ -22,7 +23,7 @@ class StreamSyncService extends EventTarget {
 	}
 
 	_setupEventListeners(){
-		rtcService.addEventListener("mediaControl", e => {
+		rtcService.addEventListener("mediaControl", ((e: CustomEvent<MediaControlEventData>) => {
 			switch (e.detail.type) {
 				case "play":
 					this._emit("play");
@@ -34,11 +35,11 @@ class StreamSyncService extends EventTarget {
 					this._emit("seek");
 					break;
 			}
-		});
+		}) as EventListener); // cast needed https://github.com/microsoft/TypeScript/issues/28357
 	}
 
-	_emit(type, data){
-		this.dispatchEvent(new Event(type, {detail: data}));
+	_emit(type: MediaControlEventType){
+		this.dispatchEvent(new Event(type));
 	}
 
 }

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Snackbar from '@material-ui/core/Snackbar';
+import Snackbar, { SnackbarCloseReason } from '@material-ui/core/Snackbar';
 
 import shareService from '../services/ShareService';
 import rtcSetupOffererService from '../services/RtcSetupOffererService';
 import rtcService from '../services/RtcService';
+import { History } from "history";
 
 let history;
 
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
 	},
 });
 
-function CreateOffer(props) {
+function CreateOffer(props: {history: History}) {
 	history = props.history;
 	let classes = useStyles();
 	const [open, setOpen] = useState(false);
@@ -40,7 +41,7 @@ function CreateOffer(props) {
 		setOpen(true);
 	}
 
-	const handleClose = (event, reason) => {
+	const handleClose = (event: SyntheticEvent, reason: SnackbarCloseReason) => {
 		if (reason === 'clickaway') return;
 		setOpen(false);
 	};

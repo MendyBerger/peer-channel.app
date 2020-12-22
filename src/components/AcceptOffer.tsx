@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, SyntheticEvent } from 'react';
 import shareService from "../services/ShareService";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import rtcSetupAnswererService from '../services/RtcSetupAnswererService';
 import rtcService from '../services/RtcService';
-import Snackbar from '@material-ui/core/Snackbar';
+import Snackbar, { SnackbarCloseReason } from '@material-ui/core/Snackbar';
+import { History } from "history";
 
 const useStyles = makeStyles({
 	root: {
@@ -20,9 +21,9 @@ function takeOfferFromUrl(){
 	rtcSetupAnswererService.acceptOffer(window.location.hash.substring(1));
 }
 
-let history;
+let history: History;
 
-function AcceptOffer(props) {
+function AcceptOffer(props: {history: History}) {
 	let classes = useStyles();
 	const [open, setOpen] = useState(false);
 
@@ -44,7 +45,7 @@ function AcceptOffer(props) {
 		setOpen(true);
 	}
 
-	const handleClose = (event, reason) => {
+	const handleClose = (event: SyntheticEvent, reason: SnackbarCloseReason) => {
 		if (reason === 'clickaway') return;
 		setOpen(false);
 	};

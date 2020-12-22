@@ -1,7 +1,7 @@
 import React from 'react';
 import answerTabExchangeService from '../services/AnswerTabExchangeService';
 
-function AcceptAnswer(props) {
+function AcceptAnswer() {
 	answerTabExchangeService.acceptAnswer(window.location.hash.substring(1));
 	return (
 		<div>

@@ -1,14 +1,14 @@
 import * as clipboard from "clipboard-polyfill";
 
 class ShareService {
-	share(url) {
+	share(url: string) {
 		navigator.share({
 			title: "Peer stream",
 			url,
 		});
 	}
 	
-	copy(url) {
+	copy(url: string) {
 		if("clipboard" in navigator)
 			navigator.clipboard.writeText(url);
 		else
