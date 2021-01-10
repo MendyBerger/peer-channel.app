@@ -27,6 +27,7 @@ let Video = forwardRef(function(props: VideoComponentProps, videoElement: any) {
 	const classes = useStyles();
 
 	let [fullscreen, setFullscreen] = useState(false);
+	let [pictureInPicture, setPictureInPicture] = useState(false);
 	let [paused, setPaused] = useState(false);
 	let [muted, setMuted] = useState(false);
 
@@ -72,6 +73,17 @@ let Video = forwardRef(function(props: VideoComponentProps, videoElement: any) {
 		setMuted(false);
 		videoElement.current.muted = false;
 	}
+	function onTogglePictureInPicture(){
+		if(!pictureInPicture) {
+			setPictureInPicture(true);
+			videoElement.current.requestPictureInPicture();
+		} else {
+			setPictureInPicture(false);
+
+			// @ts-ignore TypeScript doesn't know of the method yet
+			document.exitPictureInPicture();
+		}
+	}
 
 	return (
 		<div className={classes.root} ref={rootElement}>
@@ -90,6 +102,7 @@ let Video = forwardRef(function(props: VideoComponentProps, videoElement: any) {
 				onMute={onMute}
 				onUnmute={onUnmute}
 				onVolumeChange={onVolumeChange}
+				onTogglePictureInPicture={onTogglePictureInPicture}
 				paused={paused}
 				fullscreen={fullscreen}
 				muted={muted}
