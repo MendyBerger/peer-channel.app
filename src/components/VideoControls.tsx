@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Slider, IconButton } from '@material-ui/core';
-import { PlayArrow, Pause, VolumeUp, VolumeDown, VolumeOff, VolumeMute, Fullscreen, FullscreenExit } from '@material-ui/icons';
+import { PlayArrow, Pause, VolumeUp, VolumeDown, VolumeOff, VolumeMute, Fullscreen, FullscreenExit, PictureInPicture } from '@material-ui/icons';
 
 const useStyles = makeStyles({
 	root: {
@@ -23,6 +23,7 @@ interface VideoControlsProps {
 	onUnmute: () => void;
 	onSeek: () => void;
 	onVolumeChange: (volume: number) => void;
+	onTogglePictureInPicture: () => void;
 }
 
 function VideoControls(props: VideoControlsProps) {
@@ -95,6 +96,14 @@ function VideoControls(props: VideoControlsProps) {
 				) : (
 					<IconButton color="primary" onClick={props.onFullscreen} aria-label="Fullscreen">
 						<Fullscreen fontSize="large" />
+					</IconButton>
+				)
+			}
+			{
+				// @ts-ignore TypeScript doesn't know of the property yet
+				document.pictureInPictureEnabled && (
+					<IconButton color="primary" onClick={props.onTogglePictureInPicture} aria-label="Exit fullscreen">
+						<PictureInPicture fontSize="large" />
 					</IconButton>
 				)
 			}
