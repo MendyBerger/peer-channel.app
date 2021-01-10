@@ -1,32 +1,29 @@
 import EventTarget from "@ungap/event-target";
+import { MediaControlEventData } from "../Models/Events";
 
 class RtcService extends EventTarget {
 
-	pc;
-	dataChannel;;
+	pc: RTCPeerConnection;
+	dataChannel: RTCDataChannel;
 
-	constructor(){
-		super()
-		window.s = this;
-	}
+	___addVideoFile: File;
+	___videoStream: MediaStream;
 
-	setPeerConnection(peerConnection){
-		window.pc = peerConnection;
+	setPeerConnection(peerConnection: RTCPeerConnection){
 		this.pc = peerConnection;
 		this._setupPeerConnectionEventListeners();
 		if(this.pc && this.dataChannel)
 			this.dispatchEvent(new Event("connected"));
 	}
 
-	setDataChannel(dataChannel){
-		window.dc = dataChannel;
+	setDataChannel(dataChannel: RTCDataChannel){
 		this.dataChannel = dataChannel;
 		this._setupDataChannelEventListeners();
 		if(this.pc && this.dataChannel)
 			this.dispatchEvent(new Event("connected"));
 	}
 
-	sendMediaControl(data){
+	sendMediaControl(data: MediaControlEventData){
 		this.dataChannel.send(JSON.stringify({
 			type: "mediaControl",
 			data,
@@ -74,7 +71,7 @@ class RtcService extends EventTarget {
 			.catch(console.error);
 	}
 
-	_onDataChannelMessage(e){
+	_onDataChannelMessage(e: MessageEvent){
 		let message = JSON.parse(e.data);
 		if(message.type === "iceCandidate"){
 			this._onRemoteIceCandidate(message.candidate);
@@ -89,10 +86,10 @@ class RtcService extends EventTarget {
 			this._onMediaControl(message.data);
 		}
 	}
-	_onRemoteIceCandidate(candidate){
+	_onRemoteIceCandidate(candidate: RTCIceCandidate){
 		this.pc.addIceCandidate(candidate);
 	}
-	_onRemoteOffer(description){
+	_onRemoteOffer(description: RTCSessionDescription){
 		this.pc.setRemoteDescription(description)
 			.then(() => this.pc.createAnswer())
 			.then(answer => this.pc.setLocalDescription(answer))
@@ -103,11 +100,11 @@ class RtcService extends EventTarget {
 				}))
 			});
 	}
-	_onRemoteAnswer(description){
+	_onRemoteAnswer(description: RTCSessionDescription){
 		this.pc.setRemoteDescription(description);
 	}
-	_onMediaControl(data){
-		this.dispatchEvent(new CustomEvent("mediaControl", {detail: data}));
+	_onMediaControl(data: MediaControlEventData){
+		this.dispatchEvent(new CustomEvent<MediaControlEventData>("mediaControl", {detail: data}));
 	}
 
 }

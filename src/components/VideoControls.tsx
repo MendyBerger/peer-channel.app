@@ -11,18 +11,31 @@ const useStyles = makeStyles({
 	},
 });
 
+interface VideoControlsProps {
+	paused: boolean;
+	muted: boolean;
+	fullscreen: boolean;
+	onFullscreen: () => void;
+	onFullscreenExit: () => void;
+	onPlay: () => void;
+	onPause: () => void;
+	onMute: () => void;
+	onUnmute: () => void;
+	onSeek: () => void;
+	onVolumeChange: (volume: number) => void;
+}
 
-function VideoControls(props) {
+function VideoControls(props: VideoControlsProps) {
 	const [value, setValue] = useState(30);
 	const [volume, setVolume] = useState(100);
 
 	const classes = useStyles();
 
-	const handleChange = (event, newValue) => {
-		console.log(newValue);
-		props.onSeek(newValue);
-		setValue(newValue);
-	};
+	// const handleChange = (event, newValue) => {
+	// 	console.log(newValue);
+	// 	props.onSeek(newValue);
+	// 	setValue(newValue);
+	// };
 
 	function onVolumeUp(){
 		let newVolume = volume + 5;

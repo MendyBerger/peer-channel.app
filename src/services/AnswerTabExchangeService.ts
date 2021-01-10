@@ -2,7 +2,7 @@ class AnswerTabExchangeService {
 
 	broadcastAnswerChannel = new BroadcastChannel("answer_channel");
 
-	acceptAnswer(base64){
+	acceptAnswer(base64: string){
 		this.broadcastAnswerChannel.postMessage(base64);
 	}
 

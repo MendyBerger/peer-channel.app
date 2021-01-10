@@ -1,4 +1,7 @@
-import React, { useRef, useEffect, forwardRef, useState } from 'react';
+// Disclaimer: I ended up disabling some types (with any) in this file as it became a bit too complex
+// This file would probably need a bit refactoring before it can handle types
+
+import React, { useRef, useEffect, forwardRef, useState, SyntheticEvent } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import VideoControls from './VideoControls';
 import streamSyncService from '../services/StreamSyncService';
@@ -13,7 +16,13 @@ const useStyles = makeStyles({
 	},
 });
 
-let Video = forwardRef(function(props, videoElement) {
+interface VideoComponentProps {
+	src?: string;
+	srcObject?: MediaStream;
+	onCanPlay?: (e: SyntheticEvent) => void;
+}
+
+let Video = forwardRef(function(props: VideoComponentProps, videoElement: any) {
 
 	const classes = useStyles();
 
@@ -21,7 +30,7 @@ let Video = forwardRef(function(props, videoElement) {
 	let [paused, setPaused] = useState(false);
 	let [muted, setMuted] = useState(false);
 
-	let rootElement = useRef();
+	let rootElement: any = useRef();
 
 	useEffect(() => {
 		if(props.src)
@@ -44,7 +53,7 @@ let Video = forwardRef(function(props, videoElement) {
 		});
 	}, []);
 
-	function onVolumeChange(volume){
+	function onVolumeChange(volume: number){
 		videoElement.current.volume = volume / 100;
 	}
 	function onFullscreen(){
