@@ -3,7 +3,7 @@ import * as clipboard from "clipboard-polyfill";
 class ShareService {
 	share(url: string) {
 		navigator.share({
-			title: "Peer stream",
+			title: "peer-channel.app",
 			url,
 		});
 	}

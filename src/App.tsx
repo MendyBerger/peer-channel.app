@@ -49,7 +49,7 @@ function App() {
 		<>
 			<AppBar position="static">
 				<Toolbar>
-					<Typography component="h1">PeerStream</Typography>
+					<Typography component="h1">peer-channel.app</Typography>
 				</Toolbar>
 			</AppBar>
 			<div className={classes.root}>

@@ -1,4 +1,4 @@
-# peer-stream
+# peer-channel.app
 
 ## Build instructions
 
