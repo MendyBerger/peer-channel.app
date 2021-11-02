@@ -2,7 +2,11 @@
 	"short_name": "peer-channel",
 	"name": "peer-channel.app",
 	"icons": [
-
+		{
+			"src": "icon.svg",
+			"sizes": "144x144",
+			"type": "image/svg+xml"
+		}
 	],
 	"start_url": ".",
 	"display": "standalone",
